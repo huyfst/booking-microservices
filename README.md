@@ -19,3 +19,18 @@ Jaeger:
   - helm repo add jaegertracing https://jaegertracing.github.io/helm-charts
   - helm install jaeger jaegertracing/jaeger
 ```
+
+```
+Cert Manager: 
+  - kubectl apply -f https://github.com/cert-manager/cert-manager/releases/latest/download/cert-manager.yaml
+```
+
+```
+RabbitMQ Cluster Operator
+  - kubectl apply -f https://github.com/rabbitmq/cluster-operator/releases/latest/download/cluster-operator.yml
+```
+
+```
+Nginx Ingress Controller
+  - kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/main/deploy/static/provider/cloud/deploy.yaml
+```

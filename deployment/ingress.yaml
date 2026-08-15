@@ -1,0 +1,19 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: booking-ingress
+  annotations:
+    nginx.ingress.kubernetes.io/enable-opentelemetry: "true"
+spec:
+  ingressClassName: nginx
+  rules:
+  - http:
+      paths:
+      - path: /auth/login
+        pathType: Prefix
+        backend:
+          service:
+            name: auth-server
+            port:
+              number: 3000
+

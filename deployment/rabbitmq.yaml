@@ -1,0 +1,18 @@
+apiVersion: rabbitmq.com/v1beta1
+kind: RabbitmqCluster
+metadata:
+  name: booking-rabbitmq
+spec:
+  service:
+    type: LoadBalancer
+  replicas: 3
+  persistence:
+    storageClassName: standard
+    storage: 1Gi
+  resources:
+    limits:
+      cpu: "1"
+      memory: "1Gi"
+    requests:
+      cpu: "500m"
+      memory: "512Mi"
