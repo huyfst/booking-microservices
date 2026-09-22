@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: orchestrator-server
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: orchestrator-server
+  template:
+    metadata:
+      labels:
+        app: orchestrator-server
+    spec:
+      containers:
+        - name: orchestrator-server
+          image: huyfst/orchestrator-server:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 3007
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "128Mi"
+            limits:
+              cpu: "500m"
+              memory: "512Mi"

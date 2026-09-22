@@ -34,3 +34,9 @@ RabbitMQ Cluster Operator
 Nginx Ingress Controller
   - kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/main/deploy/static/provider/cloud/deploy.yaml
 ```
+
+```
+Redis Sentinel
+  - helm repo add bitnami https://charts.bitnami.com/bitnami
+  - helm install redis bitnami/redis --set auth.password=**** -f redis.yaml
+```

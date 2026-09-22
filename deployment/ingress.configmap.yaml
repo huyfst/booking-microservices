@@ -17,4 +17,4 @@ data:
   otel-sampler: "AlwaysOn" 
   otel-sampler-ratio: "1.0"
   otel-sampler-parent-based: "false"
-
+  limit-req-status-code: "429"

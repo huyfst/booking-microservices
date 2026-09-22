@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: booking-server
+spec:
+  selector:
+    app: booking-server
+  ports:
+    - port: 3001
+      targetPort: 3001
+  type: ClusterIP

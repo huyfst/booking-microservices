@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: payment-server
+spec:
+  selector:
+    app: payment-server
+  ports:
+    - port: 3004
+      targetPort: 3004
+  type: ClusterIP

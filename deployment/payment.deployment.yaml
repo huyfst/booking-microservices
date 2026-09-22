@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: payment-server
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: payment-server
+  template:
+    metadata:
+      labels:
+        app: payment-server
+    spec:
+      containers:
+        - name: payment-server
+          image: huyfst/payment-server:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 3004
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "128Mi"
+            limits:
+              cpu: "500m"
+              memory: "512Mi"

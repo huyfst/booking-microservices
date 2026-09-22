@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: notification-server
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: notification-server
+  template:
+    metadata:
+      labels:
+        app: notification-server
+    spec:
+      containers:
+        - name: notification-server
+          image: huyfst/notification-server:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 3006
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "128Mi"
+            limits:
+              cpu: "500m"
+              memory: "512Mi"
