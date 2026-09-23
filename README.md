@@ -26,17 +26,22 @@ Cert Manager:
 ```
 
 ```
-RabbitMQ Cluster Operator
+RabbitMQ Cluster Operator:
   - kubectl apply -f https://github.com/rabbitmq/cluster-operator/releases/latest/download/cluster-operator.yml
 ```
 
 ```
-Nginx Ingress Controller
+Nginx Ingress Controller:
   - kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/main/deploy/static/provider/cloud/deploy.yaml
 ```
 
 ```
-Redis Sentinel
+Redis Sentinel:
   - helm repo add bitnami https://charts.bitnami.com/bitnami
   - helm install redis bitnami/redis --set auth.password=**** -f redis.yaml
+```
+
+```
+Database password:
+  - kubectl create secret generic auth-postgres-secret --from-literal=POSTGRES_PASSWORD=****
 ```

@@ -1,0 +1,51 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: booking-postgres
+spec:
+  serviceName: "booking-postgres"
+  replicas: 1
+  selector:
+    matchLabels:
+      app: booking-postgres
+  template:
+    metadata:
+      labels:
+        app: booking-postgres
+    spec:
+      containers:
+        - name: booking-postgres
+          image: postgres:latest
+          env:
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-secret
+                  key: POSTGRES_PASSWORD
+          ports:
+            - containerPort: 5432
+          volumeMounts:
+            - name: booking-postgres-data
+              mountPath: /var/lib/postgresql
+  volumeClaimTemplates:
+    - metadata:
+        name: booking-postgres-data
+      spec:
+        accessModes:
+          - ReadWriteOnce
+        resources:
+          requests:
+            storage: 10Gi
+        storageClassName: standard
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: booking-postgres
+spec:
+  clusterIP: None
+  ports:
+    - port: 5432
+      name: booking-postgres
+  selector:
+    app: booking-postgres

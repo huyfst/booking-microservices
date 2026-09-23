@@ -1,0 +1,51 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: hotel-postgres
+spec:
+  serviceName: "hotel-postgres"
+  replicas: 1
+  selector:
+    matchLabels:
+      app: hotel-postgres
+  template:
+    metadata:
+      labels:
+        app: hotel-postgres
+    spec:
+      containers:
+        - name: hotel-postgres
+          image: postgres:latest
+          env:
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-secret
+                  key: POSTGRES_PASSWORD
+          ports:
+            - containerPort: 5432
+          volumeMounts:
+            - name: hotel-postgres-data
+              mountPath: /var/lib/postgresql
+  volumeClaimTemplates:
+    - metadata:
+        name: hotel-postgres-data
+      spec:
+        accessModes:
+          - ReadWriteOnce
+        resources:
+          requests:
+            storage: 10Gi
+        storageClassName: standard
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: hotel-postgres
+spec:
+  clusterIP: None
+  ports:
+    - port: 5432
+      name: hotel-postgres
+  selector:
+    app: hotel-postgres

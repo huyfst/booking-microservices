@@ -1,0 +1,51 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: payment-postgres
+spec:
+  serviceName: "payment-postgres"
+  replicas: 1
+  selector:
+    matchLabels:
+      app: payment-postgres
+  template:
+    metadata:
+      labels:
+        app: payment-postgres
+    spec:
+      containers:
+        - name: payment-postgres
+          image: postgres:latest
+          env:
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-secret
+                  key: POSTGRES_PASSWORD
+          ports:
+            - containerPort: 5432
+          volumeMounts:
+            - name: payment-postgres-data
+              mountPath: /var/lib/postgresql
+  volumeClaimTemplates:
+    - metadata:
+        name: payment-postgres-data
+      spec:
+        accessModes:
+          - ReadWriteOnce
+        resources:
+          requests:
+            storage: 10Gi
+        storageClassName: standard
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: payment-postgres
+spec:
+  clusterIP: None
+  ports:
+    - port: 5432
+      name: payment-postgres
+  selector:
+    app: payment-postgres
