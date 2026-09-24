@@ -1,3 +1,5 @@
+# Found this source code useful? Give it a star! ⭐
+
 # Booking Microservices
 
 This project leverage Golang, Grpc, RabbitMQ, Elasticsearch... to build a modern microservice architect 
